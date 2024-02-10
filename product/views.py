@@ -18,7 +18,6 @@ class ProductCreateListView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            # Serializer validation is ok
             product = serializer.save()
             logger.info(f'User {request.user.username} create a new product with ID: {product.id}.')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -57,7 +56,6 @@ class ProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
         if product:
             product.delete()
-            # Exemplo de logging
             logger.info(f'User {request.user.username} delete the product {identification}.')
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
